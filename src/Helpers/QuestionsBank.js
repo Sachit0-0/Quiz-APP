@@ -5,7 +5,7 @@ export const Questions = [
         optionB: "21",
         optionC: "69",
         optionD: "3",
-        answer:"optionC",
+        answer:"C",
     },
     {
         prompt: "What is the capital of France?",
@@ -13,7 +13,7 @@ export const Questions = [
         optionB: "Berlin",
         optionC: "Madrid",
         optionD: "Paris",
-        answer: "optionD",
+        answer: "D",
       },
       {
         prompt: "Which planet is known as the Red Planet?",
@@ -21,7 +21,7 @@ export const Questions = [
         optionB: "Mars",
         optionC: "Venus",
         optionD: "Jupiter",
-        answer: "optionB",
+        answer: "B",
       },
       {
         prompt: "What is the largest mammal on Earth?",
@@ -29,7 +29,7 @@ export const Questions = [
         optionB: "Elephant",
         optionC: "Blue Whale",
         optionD: "Lion",
-        answer: "optionC",
+        answer: "C",
       }
             
       

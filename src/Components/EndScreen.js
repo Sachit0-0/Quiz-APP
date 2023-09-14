@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import { QuizContext } from '../Helpers/Contexts';
+import { Questions } from '../Helpers/QuestionsBank';
+
 
 function EndScreen() {
   return (
