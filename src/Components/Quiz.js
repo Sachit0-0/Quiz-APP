@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { Questions } from '../Helpers/QuestionsBank';
 
 function Quiz() {
-  const [currQuestion, setCurrQuestion] = useState(0);
+  const [currQuestion, setCurrQuestion] = useState(1);
+  const [optionChosen, setOptionchosen] = useState("");
+  
+  const nextQuestion =() =>{
+    
+  }
 
   return (
     <div>
