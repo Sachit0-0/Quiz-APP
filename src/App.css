@@ -1,7 +1,11 @@
 /* In your CSS file */
 body {
-  background-image: url('https://wallpaperaccess.com/full/6836716.png');
+  background-image: url("C:\Users\sachi\OneDrive\Desktop\Quiz app\quiz\public\2207_w026_n002_2269b_p1_2269.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed; /* Optional: Fixed background */
+}
+
+* {
+  color: black !important;
 }

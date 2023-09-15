@@ -74,9 +74,18 @@ function Quiz({ setGameState }) {
         <MDBBtn
           className="btn btn-primary btn-block"
           onClick={restartGame}
-          style={{ backgroundColor: 'rgba(151, 78, 195, 0.7)', borderColor: 'rgba(151, 78, 195, 0.7)', opacity: '0.6',margin:'20px', padding: '12px 24px' }}
+          style={{
+            backgroundColor: 'rgba(151, 78, 195, 0.7)',
+            borderColor: 'rgba(151, 78, 195, 0.7)',
+            opacity: '0.6',
+            margin: '20px',
+            padding: '12px 24px',
+            color: 'white' // Added white text color
+          }}
         >
-          Restart Game
+          <a style={{
+            color: 'white', fontSize:'30px' // Added white text color
+          }}>Restart Game</a>
         </MDBBtn>
       </div>
     </div>
