@@ -1,25 +1,27 @@
-import React, { useContext } from 'react';
-import { QuizContext } from '../Helpers/Contexts'; // Use QuizContext instead of GameStateContext
-import { Questions } from '../Helpers/QuestionsBank';
+import React, { useEffect, useState } from 'react';
 
-const EndScreen = () => {
-  const { score, setScore, setGameState, userName } = useContext(QuizContext); // Use QuizContext
+function EndScreen({ setGameState }) {
+  const [lastScore, setLastScore] = useState(null);
 
-  const restartQuiz = () => {
-    setScore(0);
-    setGameState("menu");
-  };
+  useEffect(() => {
+    // Retrieve the last score from local storage
+    const storedScore = localStorage.getItem("lastScore");
+    if (storedScore) {
+      setLastScore(parseInt(storedScore));
+    }
+  }, []);
 
   return (
-    <div className="EndScreen">
-      <h1>Quiz Finished</h1>
-      <h3>{userName}</h3>
-      <h1>
-        {score} / {Questions.length}
-      </h1>
-      <button onClick={restartQuiz}>Restart Quiz</button>
+    <div>
+      <h2>End Screen</h2>
+      {lastScore !== null ? (
+        <p>Last Score: {lastScore}</p>
+      ) : (
+        <p>No previous score available.</p>
+      )}
+      <button onClick={() => setGameState('menu')}>Restart Game</button>
     </div>
   );
-};
+}
 
 export default EndScreen;

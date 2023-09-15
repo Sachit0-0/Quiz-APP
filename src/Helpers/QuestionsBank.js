@@ -5,7 +5,7 @@ export const Questions = [
         optionB: "21",
         optionC: "69",
         optionD: "3",
-        answer:"C",
+        answer:"D",
     },
     {
         prompt: "What is the capital of France?",

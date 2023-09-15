@@ -1,59 +1,78 @@
-import React, { createContext, useContext, useState } from 'react';
-import { Questions } from '../Helpers/QuestionsBank';
-import { QuizContext } from '../Helpers/Contexts';
+import React, { useState, useEffect } from 'react';
 
-function Quiz() {
-  const { score, setScore, setGameState } = useContext(QuizContext);
-  const [currQuestion, setCurrQuestion] = useState(0); // Start from the first question (index 0)
+function Quiz({ setGameState }) {
+  const [score, setScore] = useState(0);
+  const [currQuestion, setCurrQuestion] = useState(0);
   const [optionChosen, setOptionChosen] = useState("");
+  const [questions, setQuestions] = useState([]);
 
-  const nextQuestion = () => {
-    // Check the answer for the current question
-    if (Questions[currQuestion].answer === optionChosen) {
-      setScore(score + 1);
+  useEffect(() => {
+    async function fetchQuestions() {
+      try {
+        const response = await fetch('https://opentdb.com/api.php?amount=10&category=31&type=multiple');
+        const data = await response.json();
+        setQuestions(data.results);
+      } catch (error) {
+        console.error('Error fetching questions:', error);
+      }
     }
 
-    // Move to the next question or finish the quiz
-    if (currQuestion < Questions.length - 1) {
-      setCurrQuestion(currQuestion + 1);
-    } else {
-      // If there are no more questions, finish the quiz
-      setGameState("endscreen");
-    }
-  };
+    fetchQuestions();
+  }, []);
 
-  const finishQuiz = () => {
-    // Check the answer for the current question
-    if (Questions[currQuestion].answer === optionChosen) {
-      setScore(score + 1);
-    }
+  useEffect(() => {
+    const checkAnswerAndMoveNext = () => {
+      // Inside the Quiz component when the user answers a question correctly
+if (questions[currQuestion].correct_answer === optionChosen) {
+  // Update the score
+  setScore(score + 1);
+}
 
-    // Finish the quiz
-    setGameState("endscreen");
+
+ // Inside the Quiz component where you transition to EndScreen
+if (currQuestion < questions.length - 1) {
+  setCurrQuestion(currQuestion + 1);
+  setOptionChosen("");
+} else {
+
+          // Store the score in local storage
+          localStorage.setItem("lastScore", score);
+
+          // chalena yo jot ko
+          setGameState("endscreen", { score: score });
+}
+
+    };
+
+    if (optionChosen !== "") {
+      checkAnswerAndMoveNext();
+    }
+  }, [currQuestion, optionChosen, setScore, score, questions, setGameState]);
+
+  if (questions.length === 0) {
+    return <div>Loading...</div>;
   }
 
   return (
     <div>
       <h1>Quiz Component</h1>
-      <h2>{Questions[currQuestion].prompt}</h2>
+      <h2>{questions[currQuestion].question}</h2>
+      <p>Score: {score}/{currQuestion + 1}</p>
       <div className='options'>
-        <button onClick={() => setOptionChosen("A")}>{Questions[currQuestion].optionA}</button>
-        <button onClick={() => setOptionChosen("B")}>{Questions[currQuestion].optionB}</button>
-        <button onClick={() => setOptionChosen("C")}>{Questions[currQuestion].optionC}</button>
-        <button onClick={() => setOptionChosen("D")}>{Questions[currQuestion].optionD}</button>
+        {shuffleOptions([questions[currQuestion].correct_answer, ...questions[currQuestion].incorrect_answers]).map((option, index) => (
+          <button key={index} onClick={() => setOptionChosen(option)} dangerouslySetInnerHTML={{ __html: option }} />
+        ))}
       </div>
-
-      {currQuestion === Questions.length - 1 ? (
-        <button onClick={finishQuiz} id="nextQuestion">
-          Finish Quiz
-        </button>
-      ) : (
-        <button onClick={nextQuestion} id="nextQuestion">
-          Next Question
-        </button>
-      )}
     </div>
   );
+}
+
+function shuffleOptions(options) {
+  for (let i = options.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [options[i], options[j]] = [options[j], options[i]];
+  }
+  return options;
 }
 
 export default Quiz;
