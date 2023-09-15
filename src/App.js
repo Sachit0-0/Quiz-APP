@@ -12,7 +12,6 @@ function App() {
 
   return (
     <div className="App">
-      <h1>QUIZ APP</h1>
       <QuizContext.Provider value={{ gamestate, setGameState, score, setScore }}>
         {gamestate === 'menu' && <Mainmenu />}
         {gamestate === 'quiz' && <Quiz setGameState={setGameState} />} {/* Pass setGameState as a prop */}

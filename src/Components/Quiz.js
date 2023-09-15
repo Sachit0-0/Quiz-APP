@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import { MDBCard, MDBCardBody, MDBCardTitle, MDBBtn } from 'mdb-react-ui-kit';
 
 function Quiz({ setGameState }) {
   const [score, setScore] = useState(0);
@@ -9,7 +11,7 @@ function Quiz({ setGameState }) {
   useEffect(() => {
     async function fetchQuestions() {
       try {
-        const response = await fetch('https://opentdb.com/api.php?amount=10&category=31&type=multiple');
+        const response = await fetch('https://opentdb.com/api.php?amount=50&category=18&type=multiple');
         const data = await response.json();
         setQuestions(data.results);
       } catch (error) {
@@ -22,26 +24,17 @@ function Quiz({ setGameState }) {
 
   useEffect(() => {
     const checkAnswerAndMoveNext = () => {
-      // Inside the Quiz component when the user answers a question correctly
-if (questions[currQuestion].correct_answer === optionChosen) {
-  // Update the score
-  setScore(score + 1);
-}
+      if (questions[currQuestion].correct_answer === optionChosen) {
+        setScore(score + 1);
+      }
 
-
- // Inside the Quiz component where you transition to EndScreen
-if (currQuestion < questions.length - 1) {
-  setCurrQuestion(currQuestion + 1);
-  setOptionChosen("");
-} else {
-
-          // Store the score in local storage
-          localStorage.setItem("lastScore", score);
-
-          // chalena yo jot ko
-          setGameState("endscreen", { score: score });
-}
-
+      if (currQuestion < questions.length - 1) {
+        setCurrQuestion(currQuestion + 1);
+        setOptionChosen("");
+      } else {
+        localStorage.setItem("lastScore", score);
+        setGameState("endscreen", { score: score });
+      }
     };
 
     if (optionChosen !== "") {
@@ -49,19 +42,42 @@ if (currQuestion < questions.length - 1) {
     }
   }, [currQuestion, optionChosen, setScore, score, questions, setGameState]);
 
+  const restartGame = () => {
+    setCurrQuestion(0);
+    setScore(0);
+    setOptionChosen("");
+    setGameState('menu'); // Go back to the menu
+  };
+
   if (questions.length === 0) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div>
-      <h1>Quiz Component</h1>
-      <h2>{questions[currQuestion].question}</h2>
-      <p>Score: {score}/{currQuestion + 1}</p>
-      <div className='options'>
-        {shuffleOptions([questions[currQuestion].correct_answer, ...questions[currQuestion].incorrect_answers]).map((option, index) => (
-          <button key={index} onClick={() => setOptionChosen(option)} dangerouslySetInnerHTML={{ __html: option }} />
-        ))}
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <MDBCard style={{ backgroundColor: 'rgba(169, 169, 169, 0.7)' }}>
+        <MDBCardBody>
+          <MDBCardTitle className="text-center">Quiz Component</MDBCardTitle>
+          <h2>Question {currQuestion + 1}</h2>
+          <h3>{questions[currQuestion].question}</h3>
+          <p>Score: {score}/{currQuestion + 1}</p>
+          <div className='options d-flex justify-content-center'>
+            {shuffleOptions([questions[currQuestion].correct_answer, ...questions[currQuestion].incorrect_answers]).map((option, index) => (
+              <MDBBtn className='mx-2 btn-secondary' key={index} onClick={() => setOptionChosen(option)}>
+                {option}
+              </MDBBtn>
+            ))}
+          </div>
+        </MDBCardBody>
+      </MDBCard>
+      <div className="position-absolute bottom-0 w-50 text-center">
+        <MDBBtn
+          className="btn btn-primary btn-block"
+          onClick={restartGame}
+          style={{ backgroundColor: 'rgba(151, 78, 195, 0.7)', borderColor: 'rgba(151, 78, 195, 0.7)', opacity: '0.6',margin:'20px', padding: '12px 24px' }}
+        >
+          Restart Game
+        </MDBBtn>
       </div>
     </div>
   );

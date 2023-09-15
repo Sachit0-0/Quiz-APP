@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import { MDBCard, MDBCardBody, MDBCardTitle, MDBBtn } from 'mdb-react-ui-kit'; // Import MDB components
 
 function EndScreen({ setGameState }) {
   const [lastScore, setLastScore] = useState(null);
@@ -12,14 +14,24 @@ function EndScreen({ setGameState }) {
   }, []);
 
   return (
-    <div>
-      <h2>End Screen</h2>
-      {lastScore !== null ? (
-        <p>Last Score: {lastScore}</p>
-      ) : (
-        <p>No previous score available.</p>
-      )}
-      <button onClick={() => setGameState('menu')}>Restart Game</button>
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      {/* Wrap content in an MDB Card */}
+      <MDBCard style={{ backgroundColor: 'rgba(169, 169, 169, 0.7)' }}>
+        <MDBCardBody>
+          <MDBCardTitle className="text-center">End Screen</MDBCardTitle>
+          {lastScore !== null ? (
+            <p>Last Score: {lastScore}</p>
+          ) : (
+            <p>No previous score available.</p>
+          )}
+          <MDBBtn
+            className="btn btn-primary btn-block"
+            onClick={() => setGameState('menu')}
+          >
+            Restart Game
+          </MDBBtn>
+        </MDBCardBody>
+      </MDBCard>
     </div>
   );
 }
