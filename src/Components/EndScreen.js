@@ -16,7 +16,7 @@ function EndScreen({ setGameState }) {
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       {/* Wrap content in an MDB Card */}
-      <MDBCard style={{ backgroundColor: 'rgba(169, 169, 169, 0.7)' }}>
+      <MDBCard style={{ backgroundColor: 'rgba(169, 169, 169, 0.7)', fontSize:'34px' }}>
         <MDBCardBody>
           <MDBCardTitle className="text-center">End Screen</MDBCardTitle>
           {lastScore !== null ? (

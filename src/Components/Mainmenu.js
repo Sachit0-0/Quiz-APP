@@ -14,21 +14,23 @@ function Mainmenu() {
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
-      {/* Wrap content in an MDB Card */}
-      <MDBCard style={cardStyle}>
-        <MDBCardBody>
-          <MDBCardTitle className="text-center">Kuan banega roadpati</MDBCardTitle>
-          <MDBBtn
-            className="btn btn-primary btn-block"
-            onClick={() => {
-              setGameState("quiz");
-            }}
-          >
-            Start Quiz
-          </MDBBtn>
-        </MDBCardBody>
-      </MDBCard>
-    </div>
+    {/* Wrap content in an MDB Card */}
+    <MDBCard style={cardStyle}>
+      <MDBCardBody>
+        <MDBCardTitle className="text-center" style={{ fontSize: '24px' }}>Kuan banega roadpati</MDBCardTitle>
+        <MDBBtn
+          className="btn btn-primary btn-block"
+          style={{ fontSize: '18px', padding: '10px' }}
+          onClick={() => {
+            setGameState("quiz");
+          }}
+        >
+          Start Quiz
+        </MDBBtn>
+      </MDBCardBody>
+    </MDBCard>
+  </div>
+  
   );
 }
 

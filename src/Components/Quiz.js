@@ -55,37 +55,37 @@ function Quiz({ setGameState }) {
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
-      <MDBCard style={{ backgroundColor: 'rgba(169, 169, 169, 0.7)' }}>
-        <MDBCardBody>
-          <MDBCardTitle className="text-center">Quiz Component</MDBCardTitle>
-          <h2>Question {currQuestion + 1}</h2>
-          <h3>{questions[currQuestion].question}</h3>
-          <p>Score: {score}/{currQuestion + 1}</p>
-          <div className='options d-flex justify-content-center'>
-            {shuffleOptions([questions[currQuestion].correct_answer, ...questions[currQuestion].incorrect_answers]).map((option, index) => (
-              <MDBBtn className='mx-2 btn-secondary' key={index} onClick={() => setOptionChosen(option)}>
-                {option}
-              </MDBBtn>
-            ))}
-          </div>
-        </MDBCardBody>
+    <MDBCard style={{ backgroundColor: 'rgba(38, 87, 124, 0.8)' }}>
+
+        <div style={{ padding: '20px' }}> {/* Wrapper div for content */}
+          <MDBCardBody>
+            <MDBCardTitle className="text-center">Quiz Component</MDBCardTitle>
+            <h2>Question {currQuestion + 1}</h2>
+            <h3>{questions[currQuestion].question}</h3>
+            <p>Score: {score}/{currQuestion + 1}</p>
+            <div className='options d-flex justify-content-center'>
+              {shuffleOptions([questions[currQuestion].correct_answer, ...questions[currQuestion].incorrect_answers]).map((option, index) => (
+                <MDBBtn className='mx-2 btn-secondary' key={index} onClick={() => setOptionChosen(option)}>
+                  {option}
+                </MDBBtn>
+              ))}
+            </div>
+          </MDBCardBody>
+        </div>
       </MDBCard>
+
       <div className="position-absolute bottom-0 w-50 text-center">
         <MDBBtn
           className="btn btn-primary btn-block"
           onClick={restartGame}
           style={{
             backgroundColor: 'rgba(151, 78, 195, 0.7)',
-            borderColor: 'rgba(151, 78, 195, 0.7)',
-            opacity: '0.6',
+            borderColor: '#26577C',
             margin: '20px',
             padding: '12px 24px',
-            color: 'white' // Added white text color
           }}
         >
-          <a style={{
-            color: 'white', fontSize:'30px' // Added white text color
-          }}>Restart Game</a>
+          <span style={{ color: 'white', fontSize: '30px' }}>Restart Game</span>
         </MDBBtn>
       </div>
     </div>
